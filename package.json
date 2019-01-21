@@ -2,15 +2,25 @@
   "name": "react-imgp",
   "version": "1.2.0",
   "description": "React component for preloading images",
-  "main": "dist/bundle.cjs.js",
-  "module": "dist/bundle.esm.js",
-  "browser": "dist/bundle.umd.js",
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "node test/test.js",
-    "pretest": "npm run build"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whitecrownclown/react-imgp.git"
   },
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "scripts": {
+    "dev": "npm run build:esm -- -w",
+    "pretest": "npm run build:cjs",
+    "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir esm",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir lib",
+    "build": "npm run build:cjs && npm run build:esm",
+    "prepare": "npm run clean && npm run build",
+    "clean": "rimraf lib esm"
+  },
+  "files": [
+    "esm",
+    "lib"
+  ],
   "keywords": [
     "react",
     "image",
@@ -20,20 +30,14 @@
   "author": "Daniel Andrei",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "7.1.5",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
-    "prop-types": "^15.6.2",
-    "rollup": "^1.0.0",
-    "rollup-plugin-babel": "^4.2.0",
-    "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-node-resolve": "^4.0.0"
+    "cross-env": "^5.2.0",
+    "prop-types": "^15.6.2"
   },
   "peerDependencies": {
     "react": ">= 16.3.x"
-  },
-  "dependencies": {},
-  "files": [
-    "dist"
-  ]
+  }
 }
