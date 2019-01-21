@@ -13,9 +13,9 @@ class Img extends React.Component {
     };
   }
 
-  static preloadImage({ src, decode }) {
+  static preloadImage({ src, decode, useCache }) {
     return (
-      getCachedValue(src) ||
+      (useCache && getCachedValue(src)) ||
       new Promise((resolve, reject) => {
         const image = new Image();
 
@@ -26,13 +26,13 @@ class Img extends React.Component {
           image
             .decode()
             .then(() => {
-              setCachedValue(src, image);
+              useCache && setCachedValue(src, image);
               resolve({ image, src });
             })
             .catch(reject);
         } else {
           image.onload = () => {
-            setCachedValue(src, image);
+            useCache && setCachedValue(src, image);
             resolve({ image, src });
           };
           image.src = src;
@@ -77,7 +77,7 @@ class Img extends React.Component {
 
   render() {
     const { loading, image } = this.state;
-    const { src, loader, decode, ...rest } = this.props;
+    const { src, loader, useCache, decode, ...rest } = this.props;
 
     if (!src) {
       return null;
@@ -89,12 +89,14 @@ class Img extends React.Component {
 
 Img.propTypes = {
   src: string.isRequired,
+  useCache: bool,
   decode: bool,
   loader: node
 };
 
 Img.defaultProps = {
-  decode: true,
+  decode: false,
+  useCache: true,
   loader: null
 };
 

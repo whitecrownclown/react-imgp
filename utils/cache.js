@@ -5,7 +5,7 @@ export function getCachedValue(key) {
 }
 
 export function setCachedValue(key, value) {
-  if (!isCached(key)) {
+  if (!getCachedValue(key)) {
     _cache.set(key, value);
   }
 }

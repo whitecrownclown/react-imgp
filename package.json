@@ -1,5 +1,5 @@
 {
-  "name": "react-preload-image",
+  "name": "react-imgp",
   "version": "1.0.0",
   "description": "React component for preloading and caching images",
   "main": "dist/bundle.cjs.js",
