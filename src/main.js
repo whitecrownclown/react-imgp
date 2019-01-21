@@ -1,8 +1,6 @@
 import React from "react";
 import { bool, string, node } from "prop-types";
 
-import { setCachedValue, getCachedValue } from "../utils/cache";
-
 class Img extends React.Component {
   constructor(props) {
     super(props);
@@ -13,32 +11,27 @@ class Img extends React.Component {
     };
   }
 
-  static preloadImage({ src, decode, useCache }) {
-    return (
-      (useCache && getCachedValue(src)) ||
-      new Promise((resolve, reject) => {
-        const image = new Image();
+  static preloadImage({ src, decode }) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
 
-        image.onerror = image.onabort = reject;
+      image.onerror = image.onabort = reject;
 
-        if (decode) {
-          image.src = src;
-          image
-            .decode()
-            .then(() => {
-              useCache && setCachedValue(src, image);
-              resolve({ image, src });
-            })
-            .catch(reject);
-        } else {
-          image.onload = () => {
-            useCache && setCachedValue(src, image);
+      if (decode) {
+        image.src = src;
+        image
+          .decode()
+          .then(() => {
             resolve({ image, src });
-          };
-          image.src = src;
-        }
-      })
-    );
+          })
+          .catch(reject);
+      } else {
+        image.onload = () => {
+          resolve({ image, src });
+        };
+        image.src = src;
+      }
+    });
   }
 
   preload() {
@@ -77,7 +70,7 @@ class Img extends React.Component {
 
   render() {
     const { loading, image } = this.state;
-    const { src, loader, useCache, decode, ...rest } = this.props;
+    const { src, loader, decode, ...rest } = this.props;
 
     if (!src) {
       return null;
@@ -89,14 +82,12 @@ class Img extends React.Component {
 
 Img.propTypes = {
   src: string.isRequired,
-  useCache: bool,
   decode: bool,
   loader: node
 };
 
 Img.defaultProps = {
   decode: false,
-  useCache: true,
   loader: null
 };
 
