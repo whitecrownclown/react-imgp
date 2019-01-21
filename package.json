@@ -1,7 +1,7 @@
 {
   "name": "react-imgp",
   "version": "1.1.0",
-  "description": "React component for preloading and caching images",
+  "description": "React component for preloading images",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
   "browser": "dist/bundle.umd.js",
@@ -23,6 +23,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "prop-types": "^15.6.2",
     "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.2.0",
     "rollup-plugin-commonjs": "^9.2.0",
