@@ -1,94 +1,52 @@
-import React from "react";
-import { bool, string, node } from "prop-types";
+import React, { useState, useEffect } from "react";
+import { string, node } from "prop-types";
 
-class Img extends React.Component {
-  constructor(props) {
-    super(props);
+const fetchImage = src => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
 
-    this.state = {
-      image: null,
-      loading: !!props.src
-    };
-  }
+    image.onload = resolve;
+    image.onerror = image.onabort = reject;
 
-  static preloadImage({ src, decode }) {
-    return new Promise((resolve, reject) => {
-      const image = new Image();
+    image.src = src;
+  });
+};
 
-      image.onerror = image.onabort = reject;
+const Img = ({ src, fallback, loader, ...rest }) => {
+  const [image, setImage] = useState(src);
+  const [loaded, setLoaded] = useState(false);
 
-      if (decode) {
-        image.src = src;
-        image
-          .decode()
-          .then(() => {
-            resolve({ image, src });
-          })
-          .catch(reject);
-      } else {
-        image.onload = () => {
-          resolve({ image, src });
-        };
-        image.src = src;
-      }
-    });
-  }
+  useEffect(
+    () => {
+      setLoaded(false);
 
-  preload() {
-    if (!this.props.src) {
-      return;
-    }
-    Img.preloadImage(this.props)
-      .then(({ src }) => {
-        this.setState({
-          loading: false,
-          image: src
+      fetchImage(image)
+        .then(() => setLoaded(true))
+        .catch(() => {
+          if (fallback) {
+            fetchImage(fallback)
+              .then(() => {
+                setImage(fallback);
+                setLoaded(true);
+              })
+              .catch(() => setLoaded(false));
+          }
         });
-      })
-      .catch(error => {
-        console.error(error.message);
-        this.setState({
-          loading: false
-        });
-      });
-  }
+    },
+    [src]
+  );
 
-  componentDidMount() {
-    this.preload();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.src !== this.props.src) {
-      this.setState(
-        {
-          loading: true
-        },
-        this.preload
-      );
-    }
-  }
-
-  render() {
-    const { loading, image } = this.state;
-    const { src, loader, decode, ...rest } = this.props;
-
-    if (!src) {
-      return null;
-    }
-
-    return loading ? loader : <img src={image} {...rest} />;
-  }
-}
+  return loaded ? <img src={image} {...rest} /> : loader;
+};
 
 Img.propTypes = {
-  src: string.isRequired,
-  decode: bool,
+  src: string,
+  fallback: string,
   loader: node
 };
 
 Img.defaultProps = {
-  decode: false,
   loader: null
 };
 
-export { Img };
+export default Img;
