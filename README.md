@@ -3,17 +3,17 @@
 ### Usage
 
 ```js
-import { Img } from "react-imgp";
+import Image from "react-imgp";
 
-const App = ({ imageProps }) => <Img {...imageProps} />;
+const App = ({ imageProps }) => <Image {...imageProps} />;
 ```
 
 ### API
 
 - Use it as a react component that takes the same props as the [HTMLImageElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
   - `src` - Same as the HTMLImageElement. It is required.
-  - `decode` - Whether or not to use the [decode API](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode). Default is false (see [compatibility](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode#Browser_compatibility)).
-  - `loader` - If provided, it will be displayed while image preloads.
+  - `fallback` - Used in case the original `src` cannot be retrieved.
+  - `loader` - If provided, it will be displayed while image loads.
 
 ### Install
 
