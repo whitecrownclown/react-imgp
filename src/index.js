@@ -20,7 +20,7 @@ const Img = ({ src, fallback, loader, ...rest }) => {
     () => {
       setLoaded(false);
 
-      fetchImage(image)
+      fetchImage(src)
         .then(() => setLoaded(true))
         .catch(() => {
           if (fallback) {
