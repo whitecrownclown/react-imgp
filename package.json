@@ -10,7 +10,8 @@
   "module": "esm/index.js",
   "scripts": {
     "dev": "npm run build:esm -- -w",
-    "pretest": "npm run build:cjs",
+    "pretest": "npm run build:esm",
+    "test": "ava ./tests",
     "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir esm",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir lib",
     "build": "npm run build:cjs && npm run build:esm",
@@ -29,13 +30,35 @@
   ],
   "author": "Daniel Andrei",
   "license": "MIT",
+  "ava": {
+    "require": [
+      "esm"
+    ],
+    "babel": {
+      "testOptions": {
+        "presets": [
+          "@babel/preset-react"
+        ]
+      }
+    },
+    "compileEnhancements": false
+  },
   "devDependencies": {
     "@babel/cli": "7.1.5",
     "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.4.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.4.0",
+    "ava": "^1.4.0",
     "cross-env": "^5.2.0",
-    "prop-types": "^15.6.2"
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "esm": "^3.2.20",
+    "prop-types": "^15.6.2",
+    "react": "^16.8.5",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.8.5"
   },
   "peerDependencies": {
     "react": ">= 16.3.x"
