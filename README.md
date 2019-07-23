@@ -27,7 +27,7 @@ const App = ({ imageProps }) => {
   return loaded ? (
     <div
       style={{
-        backgroundImage: imageProps.src
+        backgroundImage: `url(imageProps.src)`
       }}
     />
   ) : null;
