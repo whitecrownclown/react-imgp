@@ -1,42 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { string, node } from "prop-types";
+import React from 'react';
+import { string, node } from 'prop-types';
 
-const fetchImage = src => {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
+import { useImage } from './hook';
 
-    image.onload = resolve;
-    image.onerror = image.onabort = reject;
+const Img = ({ src, fallback, loader, ...props }) => {
+  const { loaded } = useImage({ src, fallback });
 
-    image.src = src;
-  });
-};
-
-const Img = ({ src, fallback, loader, ...rest }) => {
-  const [image, setImage] = useState(src);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(
-    () => {
-      setLoaded(false);
-
-      fetchImage(src)
-        .then(() => setLoaded(true))
-        .catch(() => {
-          if (fallback) {
-            fetchImage(fallback)
-              .then(() => {
-                setImage(fallback);
-                setLoaded(true);
-              })
-              .catch(() => setLoaded(false));
-          }
-        });
-    },
-    [src]
-  );
-
-  return loaded ? <img src={image} {...rest} /> : loader;
+  return loaded ? <img src={image} {...props} /> : loader;
 };
 
 Img.propTypes = {
@@ -50,3 +20,4 @@ Img.defaultProps = {
 };
 
 export default Img;
+export { useImage };
