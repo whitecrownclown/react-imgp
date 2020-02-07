@@ -1,6 +1,6 @@
 # react-imgp
 
-### Usage
+## Usage
 
 ```js
 import Image from 'react-imgp';
@@ -8,7 +8,7 @@ import Image from 'react-imgp';
 const App = ({ imageProps }) => <Image {...imageProps} />;
 ```
 
-### API
+## API
 
 - Use it as a react component that takes the same props as the [HTMLImageElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement) and passes them down
 
@@ -34,16 +34,16 @@ const App = ({ imageProps }) => {
 };
 ```
 
-### Install
+## Install
 
 - `npm install react-imgp`
 
-### Dependencies
+## Dependencies
 
 - The following are not bundled :
   - `Promise` API
   - Peer dependency `react` >= 16.8.x
 
-### Author
+## Author
 
 - Daniel Andrei [@DanielCCAndrei](https://twitter.com/DanielCCAndrei)
