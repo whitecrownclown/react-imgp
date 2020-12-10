@@ -6,7 +6,7 @@ import { useImage } from './hook';
 const Img = ({ src, fallback, loader, ...props }) => {
   const { loaded } = useImage({ src, fallback });
 
-  return loaded ? <img src={image} {...props} /> : loader;
+  return loaded ? <img src={src} {...props} /> : loader;
 };
 
 Img.propTypes = {
