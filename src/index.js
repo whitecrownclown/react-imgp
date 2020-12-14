@@ -4,9 +4,9 @@ import { string, node } from 'prop-types';
 import { useImage } from './hook';
 
 const Img = ({ src, fallback, loader, ...props }) => {
-  const { loaded } = useImage({ src, fallback });
+  const { loaded, source } = useImage({ src, fallback });
 
-  return loaded ? <img src={src} {...props} /> : loader;
+  return loaded ? <img src={source} {...props} /> : loader;
 };
 
 Img.propTypes = {
