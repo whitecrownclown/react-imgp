@@ -1,15 +1,5 @@
 import { useState, useEffect } from "react";
-
-function fetchImage(src) {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-
-    image.onload = resolve;
-    image.onerror = image.onabort = reject;
-
-    image.src = src;
-  });
-}
+import { fetchImage } from "./util";
 
 export function useImage({ src, fallback }) {
   const [source, setSource] = useState(src);
@@ -17,19 +7,31 @@ export function useImage({ src, fallback }) {
 
   useEffect(() => {
     setLoaded(false);
-    fetchImage(src)
+
+    // Get image source
+    let cancelable = fetchImage(src);
+
+    cancelable.promise
       .then(() => {
         setSource(src);
         setLoaded(true);
       })
-      .catch(() => {
-        if (fallback) {
-          fetchImage(fallback).then(() => {
+      .catch(({ isCanceled }) => {
+        if (fallback && !isCanceled) {
+          // Get fallback source
+          cancelable = fetchImage(fallback);
+
+          cancelable.promise.then(() => {
             setSource(fallback);
             setLoaded(true);
           });
         }
       });
+
+    return () => {
+      // Cancel any pending promises
+      cancelable.cancel();
+    };
   }, [src, fallback]);
 
   return { loaded, source };
