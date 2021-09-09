@@ -1,14 +1,31 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "browsers": ["last 2 versions", "safari >= 7"]
-        },
-        "modules": false
-      }
-    ],
-    "@babel/preset-react"
-  ]
+  "env": {
+    "esmUnbundled": {
+      "presets": [
+        "@babel/preset-react"
+      ]
+    },
+    "esmBundled": {
+      "presets": [
+        [
+          "@babel/env",
+          {
+            "targets": "> 0.25%, not dead"
+          }
+        ],
+        "@babel/preset-react"
+      ]
+    },
+    "cjs": {
+      "presets": [
+        [
+          "@babel/env",
+          {
+            "modules": "cjs"
+          }
+        ],
+        "@babel/preset-react"
+      ]
+    }
+  }
 }

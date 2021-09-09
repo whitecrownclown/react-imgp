@@ -6,22 +6,27 @@
     "type": "git",
     "url": "git+https://github.com/whitecrownclown/react-imgp.git"
   },
-  "main": "lib/index.js",
-  "module": "esm/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
   "scripts": {
     "dev": "npm run build:esm -- -w",
     "pretest": "npm run build:esm",
     "test": "ava --verbose --serial",
-    "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir esm",
-    "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir lib",
-    "build": "npm run build:cjs && npm run build:esm",
+    "build:esm": "cross-env BABEL_ENV=esmUnbundled babel src -d lib/esm",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src -d lib/cjs",
+    "build:bundles": "cross-env BABEL_ENV=esmBundled rollup -c",
+    "build": "npm-run-all -l clean -p build:esm build:cjs build:bundles",
     "prepare": "npm run clean && npm run build",
-    "clean": "rimraf lib esm"
+    "clean": "rimraf lib"
   },
-  "files": [
-    "esm",
-    "lib"
-  ],
   "keywords": [
     "react",
     "image",
@@ -50,15 +55,19 @@
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-react": "^7.14.5",
     "@babel/register": "^7.15.3",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "ava": "^3.15.0",
     "cross-env": "^7.0.3",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
     "esm": "^3.2.25",
+    "npm-run-all": "^4.1.5",
     "prop-types": "^15.7.2",
-    "react": "^16.8.5",
+    "react": "17.0.2",
     "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "rollup": "^2.56.3",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "peerDependencies": {
     "react": ">=17.0.x"
