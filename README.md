@@ -1,9 +1,9 @@
-# react-imgp
+# react-imgp ![canvas](icon.png)
 
 ## Usage
 
 ```js
-import Image from 'react-imgp';
+import { Image } from 'react-imgp';
 
 const App = ({ imageProps }) => <Image {...imageProps} />;
 ```
@@ -21,7 +21,11 @@ const App = ({ imageProps }) => <Image {...imageProps} />;
 ```js
 import { useImage } from 'react-imgp';
 
-const App = ({ imageProps }) => {
+const imageProps = {
+  src: 'https://dummyimage.com/600x400/000/fff',
+};
+
+const App = () => {
   const { loaded } = useImage(imageProps);
 
   return loaded ? (
@@ -41,8 +45,9 @@ const App = ({ imageProps }) => {
 ## Dependencies
 
 - The following are not bundled :
+
   - `Promise` API
-  - Peer dependency `react` >= 16.8.x
+  - Peer dependency `react` >= 17.0.x
 
 ## Author
 
