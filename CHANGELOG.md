@@ -1,4 +1,6 @@
 Changelog
+### [5.0.1](https://github.com/whitecrownclown/react-imgp/compare/v5.0.0...v5.0.1) (2021-09-09)
+
 ## [5.0.0](https://github.com/whitecrownclown/react-imgp/compare/v4.0.3...v5.0.0) (2021-09-09)
 
 ### [4.0.3](https://github.com/whitecrownclown/react-imgp/compare/v4.0.2...v4.0.3) (2021-07-23)
