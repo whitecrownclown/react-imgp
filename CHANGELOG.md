@@ -1,4 +1,11 @@
 Changelog
+### [5.0.2](https://github.com/whitecrownclown/react-imgp/compare/v5.0.1...v5.0.2) (2021-09-13)
+
+
+### Bug Fixes
+
+* missing react import on Image component ([1d2061c](https://github.com/whitecrownclown/react-imgp/commit/1d2061c55ab4c160aa1946c864f605b0fafd8339))
+
 ### [5.0.1](https://github.com/whitecrownclown/react-imgp/compare/v5.0.0...v5.0.1) (2021-09-09)
 
 ## [5.0.0](https://github.com/whitecrownclown/react-imgp/compare/v4.0.3...v5.0.0) (2021-09-09)
