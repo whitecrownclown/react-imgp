@@ -1,4 +1,11 @@
 Changelog
+### [5.0.4](https://github.com/whitecrownclown/react-imgp/compare/v5.0.3...v5.0.4) (2021-09-23)
+
+
+### Bug Fixes
+
+* add object rest spread plugin to all bundles ([45684ec](https://github.com/whitecrownclown/react-imgp/commit/45684ec976bbd4e4ab655040c9c5b177b1d1937b))
+
 ### [5.0.3](https://github.com/whitecrownclown/react-imgp/compare/v5.0.2...v5.0.3) (2021-09-23)
 
 
