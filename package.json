@@ -12,6 +12,7 @@
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
+  "sideEffects": false,
   "files": [
     "src",
     "lib"
@@ -51,6 +52,7 @@
     "@ava/babel": "^2.0.0",
     "@babel/cli": "7.15.4",
     "@babel/core": "^7.15.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.15.6",
     "@babel/polyfill": "^7.4.0",
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-react": "^7.14.5",
