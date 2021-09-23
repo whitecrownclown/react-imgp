@@ -1,4 +1,11 @@
 Changelog
+### [5.0.3](https://github.com/whitecrownclown/react-imgp/compare/v5.0.2...v5.0.3) (2021-09-23)
+
+
+### Bug Fixes
+
+* add spread operator babel plugin ([abf0f9f](https://github.com/whitecrownclown/react-imgp/commit/abf0f9f973f2597fafb960f86c1534371141d336))
+
 ### [5.0.2](https://github.com/whitecrownclown/react-imgp/compare/v5.0.1...v5.0.2) (2021-09-13)
 
 
